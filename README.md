@@ -4,6 +4,7 @@
 Library to download .ipynb from google colab
 
 ## Quick Guide ##
+	pip install colab-load
 One url:
 
     from colab_load.load import StartLoad
