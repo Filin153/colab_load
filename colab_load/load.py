@@ -16,8 +16,10 @@ class StartLoad(CheckValue):
         self.logs = logs
         init()
 
-
     def load_file_a(self, url_list: list, count: int, save_dir: str):
+        return self.load_file_all(url_list, count, save_dir)
+
+    def load_file_all(self, url_list: list, count: int, save_dir: str):
         """
         :param url_list: list from the url where you need to download files
         :param count: number of open browsers
@@ -44,8 +46,11 @@ class StartLoad(CheckValue):
             except:
                 pass
 
-
     def load_file_s(self, url: str, save_dir: str):
+        return self.load_file_single(url, save_dir)
+
+
+    def load_file_single(self, url: str, save_dir: str):
         """
         :param url: url
         :param save_dir: The folder where the files will be saved
@@ -54,11 +59,13 @@ class StartLoad(CheckValue):
         self.save_dir = self._check_dir(save_dir)
         url = self._check_url(url)
         driver = self.__create_driver()
-        self.__load(url, driver)
+        res = self.__load(url, driver)
         try:
             driver.quit()
         except:
             pass
+
+        return res
 
     def __print_log(self, text: str, color: Fore):
         if self.logs:
@@ -150,7 +157,7 @@ class StartLoad(CheckValue):
             self.load_is_ready(save_dir, file_name_t.file_name)
 
             self.__print_log(f"File save to - {save_dir}/{file_name_t.file_name}", color=Fore.GREEN)
-            return f"File save to - {save_dir}/{file_name_t.file_name}"
+            return f"{save_dir}/{file_name_t.file_name}" if str(file_name_t.file_name).endswith('.ipynb') else f"{save_dir}/{file_name_t.file_name}.ipynb"
         except Exception as e:
             try:
                 file_name_t.join()

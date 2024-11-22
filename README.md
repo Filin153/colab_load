@@ -10,7 +10,7 @@ One url:
     from colab_load.load import StartLoad
     
     s = StartLoad(logs=True)
-    s.load_file_s("https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing", save_dir="file")
+    s.load_file_single("https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing", save_dir="file")
 
 Lots of url:
 
@@ -18,4 +18,4 @@ Lots of url:
     
 	urls=["https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing", "https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing"]
 	s = StartLoad(logs=True)
-	s.load_file_a(urls, save_dir="file", count=2)
+	s.load_file_all(urls, save_dir="file", count=2)
