@@ -16,13 +16,14 @@ class ColabLoad(CheckValue):
     async def load_file_s(self, url: str, save_dir: str, file_name: str):
         return await self.load_file_single(url, save_dir, file_name)
 
-    async def load_file_single(self, url: str, save_dir: str, file_name: str):
+    async def load_file_single(self, url: str, save_dir: str = None, file_name: str = None):
         """
         :param url: url
         :param save_dir: The folder where the files will be saved
         :return:
         """
-        save_dir = self._check_dir(save_dir)
+        if save_dir:
+            save_dir = self._check_dir(save_dir)
         file_name = file_name if file_name.endswith(".ipynb") else file_name + ".ipynb"
 
         url = self._check_url(url)
@@ -33,19 +34,31 @@ class ColabLoad(CheckValue):
         )
         if response.status_code != 200:
             return {"error": True,
-                    "msg": f"Ошибка - {url}!\nstatus_code - {response.status_code};\ntext - {response.text}",
-                    "file_path": None}
+                    "msg": f"Ошибка - {url}!",
+                    "file_path": None,
+                    # "response_text": response.text,
+                    "status_code": response.status_code
+                    }
 
-        file_path = os.path.join(save_dir, file_name)
+        if save_dir:
+            file_path = os.path.join(save_dir, file_name)
+        else:
+            file_path = file_name
 
         try:
             with open(file_path, "w") as f:
                 json.dump(json.loads(response.content), f)
-        except:
+        except Exception as e:
             return {"error": True,
+                    "exe": e,
                     "msg": f"No access - {url}",
-                    "file_path": None}
+                    "file_path": None,
+                    # "response_text": response.text,
+                    "status_code": response.status_code}
 
         return {"error": False,
                 "msg": f"File save to - {file_path}",
-                "file_path": file_path}
+                "file_path": file_path,
+                # "response_text": None,
+                "status_code": response.status_code
+                }

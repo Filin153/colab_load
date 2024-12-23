@@ -7,3 +7,4 @@ build
 /file
 *.ipynb
 /file_colab_load
+test_more.py
