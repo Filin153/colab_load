@@ -46,8 +46,9 @@ class ColabLoad(CheckValue):
             file_path = file_name
 
         try:
+            data = json.loads(response.content)
             with open(file_path, "w") as f:
-                json.dump(json.loads(response.content), f)
+                json.dump(data, f)
         except Exception as e:
             return {"error": True,
                     "exe": e,
