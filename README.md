@@ -7,15 +7,18 @@ Library to download .ipynb from google colab
 	pip install colab-load
 One url:
 
-    from colab_load.load import StartLoad
+    from colab_load.load import ColabLoad
+    import asyncio
     
-    s = StartLoad(logs=True)
-    s.load_file_single("https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing", save_dir="file")
-
-Lots of url:
-
-	from colab_load.load import StartLoad
+    colab_load = ColabLoad()
     
-	urls=["https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing", "https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing"]
-	s = StartLoad(logs=True)
-	s.load_file_all(urls, save_dir="file", count=2)
+    async def main():
+        res = await colab_load.load_file_single("https://colab.research.google.com/drive/1QD1TM2TroOEqqtTURpk5sVOmGLQeREv_?usp=sharing",
+                                          "file_colab_load", "test_colab_load")
+    
+        print(res)
+    
+    asyncio.run(main())
+
+
+

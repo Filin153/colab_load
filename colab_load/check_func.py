@@ -10,14 +10,6 @@ class CheckValue:
 
         return url
 
-    def _check_count(self, c):
-        if not isinstance(c, int):
-            raise TypeError('count is not int')
-        elif c <= 0:
-            raise ValueError('count must be greater than 0')
-        else:
-            return c
-
     def _check_dir(self, save_dir):
         if not isinstance(save_dir, str):
             raise TypeError('save_dir is not str')

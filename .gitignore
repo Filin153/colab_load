@@ -5,3 +5,5 @@ dist
 colab_load.egg-info
 build
 /file
+*.ipynb
+/file_colab_load
